@@ -1,4 +1,4 @@
-import styles from "@/styles/NewPage.module.css";
+import styles from "@/styles/world-map.module.scss";
 
 const WorldMap = () => {
     return (
