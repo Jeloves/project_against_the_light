@@ -12,9 +12,24 @@ export const title_resource_4p = "engineers"
 export const title_resource_5 = "population"
 export const title_resource_5p = "population"
 
+// Image URLS
 export const url_resource_0 = "/icons/supply.svg";
 export const url_resource_1 = "/icons/antenna.svg";
 export const url_resource_2 = "/icons/apple.svg";
 export const url_resource_3 = "/icons/beaker.svg";
 export const url_resource_4 = "/icons/tools.svg";
 export const url_resource_5 = "/icons/people.svg";
+
+// Mission Terminology
+export const label_mission = "operation";
+export const label_missions = "operations";
+export const title_mission_type_0 = "assault";
+export const title_mission_type_1 = "counter-reconaissance";
+export const title_mission_type_2 = "defense";
+export const title_mission_type_3 = "elimination";
+export const title_mission_type_4 = "exfiltration";
+export const title_mission_type_5 = "extraction";
+export const title_mission_type_6 = "raid";
+export const title_mission_type_7 = "reconaissance";
+export const title_mission_type_8 = "rescue";
+export const title_mission_type_9 = "scavenge";
