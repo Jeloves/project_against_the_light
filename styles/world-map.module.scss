@@ -7,13 +7,8 @@
 
     .resources {
         background-color: blue;
-        width: 75%;
+        flex-grow: 1;
         display: flex;
         justify-content: space-evenly;
-    }
-
-    .time {
-        width: 25%;
-        background-color: yellow;
     }
 }

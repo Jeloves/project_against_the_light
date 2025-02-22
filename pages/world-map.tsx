@@ -1,6 +1,7 @@
 import styles from "@/styles/world-map.module.scss";
 import ResourceMeter from "@/components/world-map/ResourceMeter";
 import { title_resource_0, title_resource_1, title_resource_2, title_resource_3, title_resource_4, title_resource_5 } from "@/constants";
+import TimeControl from "@/components/world-map/TimeControl";
 
 const WorldMap = () => {
     return (
@@ -14,7 +15,7 @@ const WorldMap = () => {
                     <ResourceMeter resourceType={title_resource_4}/>
                     <ResourceMeter resourceType={title_resource_5}/>
                 </div>
-                <div className={styles.time}>Date/Time</div>
+                <TimeControl pauseplayTime={pauseplayTime} fastForwardTime={fastforwardTime}/>
             </div>
             <div className={styles.midbar}>
                 <div className={styles.leftmenu}>MENU</div>
@@ -27,5 +28,17 @@ const WorldMap = () => {
         </main>
     );
 };
+
+const pauseplayTime = (isPaused: boolean) => {
+    if (isPaused) {
+        console.log("Game is paused.")
+    } else {
+        console.log("Game has resumed.")
+    }
+}
+
+const fastforwardTime = (newSpeed: number) => {
+    console.log("Increased to " + newSpeed + "x time speed.")
+}
 
 export default WorldMap;
