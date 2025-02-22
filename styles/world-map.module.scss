@@ -1,3 +1,4 @@
+
 .topbar {
     background-color: red;
     width: 100%;
@@ -6,9 +7,13 @@
 
     .resources {
         background-color: blue;
+        width: 75%;
+        display: flex;
+        justify-content: space-evenly;
     }
 
     .time {
+        width: 25%;
         background-color: yellow;
     }
 }
