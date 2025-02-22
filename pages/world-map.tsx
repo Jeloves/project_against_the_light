@@ -1,10 +1,14 @@
 import styles from "@/styles/world-map.module.scss";
+import ResourceMeter from "@/components/world-map/ResourceMeter";
+import { title_resource_0 } from "@/constants";
 
 const WorldMap = () => {
     return (
         <main>
             <div className={styles.topbar}>
-                <div className={styles.resources}>Resources</div>
+                <div className={styles.resources}>
+                    <ResourceMeter resourceType={title_resource_0}/>
+                </div>
                 <div className={styles.time}>Date/Time</div>
             </div>
             <div className={styles.midbar}>
