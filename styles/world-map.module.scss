@@ -1,3 +1,10 @@
+.container {
+    background-color: darkcyan;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
 
 .topbar {
     background-color: red;
@@ -11,4 +18,31 @@
         display: flex;
         justify-content: space-evenly;
     }
+}
+
+.midbar {
+    background-color: black;
+    flex-grow: 1;
+    display: flex;   
+    align-items: center;
+    overflow: hidden;   
+}
+.menu {
+    background-color: gray;
+}
+.map {
+    flex-grow: 1;
+}
+.missions {
+    background-color: darkgreen;
+    height: 75%;
+    width: 20%;
+    overflow: auto;
+}
+.missions::-webkit-scrollbar {
+    display: none; /* Hide the scrollbar */
+}
+
+.botbar {
+background-color: purple;
 }

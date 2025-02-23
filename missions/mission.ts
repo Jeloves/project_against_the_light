@@ -1,22 +1,24 @@
 export class Mission {
     name: string;
     type: string;
+    destination: string;
     currentDuration: number;
     totalDuration: number;
     isComplete: boolean;
     isSuccessful: boolean;
     partyIDs: string[];
-    icon: string;
+    emblemURL: string;
 
-    constructor(name: string, type: string, totalDuration: number, partyIDs: string[], icon: string) {
+    constructor(name: string, type: string, destination: string, totalDuration: number, partyIDs: string[], emblemURL: string) {
         this.name = name;
         this.type = type;
-        this.currentDuration = 0;
+        this.destination = destination;
+        this.currentDuration = totalDuration;
         this.totalDuration = totalDuration;
         this.isComplete = false; 
         this.isSuccessful = false;
         this.partyIDs = partyIDs;
-        this.icon = icon;
+        this.emblemURL = emblemURL;
     }
 
     getName(): string {
@@ -31,6 +33,13 @@ export class Mission {
     }
     setType(type: string): void {
         this.type = type;
+    }
+
+    getDestination(): string {
+        return this.destination;
+    }
+    setDestination(destination: string) {
+        this.destination = destination;
     }
 
     getCurrentDuration(): number {
@@ -61,10 +70,10 @@ export class Mission {
         this.isSuccessful = isSuccessful;
     }
 
-    getIcon(): string {
-        return this.icon;
+    getEmblemURL(): string {
+        return this.emblemURL;
     }
     setIcon(icon: string): void {
-        this.icon = icon;
+        this.emblemURL = icon;
     }
 }

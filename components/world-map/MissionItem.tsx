@@ -1,20 +1,28 @@
 import React, { ReactNode, useState } from "react";
-import styles from "./OperationsWindow.module.scss"
-import { label_missions, title_mission_type_0 } from "@/constants";
+import Image from "next/image";
+import styles from "./MissionItem.module.scss"
 import { Mission } from "@/missions/mission";
+import { formatSecondsIntoHours } from "@/utils/format";
 
 type MissionItemProp = {
-    missions: Mission[];
+    mission: Mission;
 };
 
 
-const MissionItem = ({ missions }: MissionItemProp) => {
+const MissionItem = ({ mission }: MissionItemProp) => {
 
 
     return (
         <div className={styles.container}>
-            <h1>{label_missions}</h1>
-            <h2>{title_mission_type_0}</h2>
+            <div className={styles.emblem}>
+                <Image src={mission.getEmblemURL()} alt="Emblem Icon" width={32} height={32} />
+            </div>
+
+            <div className={styles.subcontainer}>
+                <h1>{mission.getName()}</h1>
+                <h2>{mission.getDestination()}</h2>
+            </div>
+            <p className={styles.duration}>{formatSecondsIntoHours(mission.getCurrentDuration())} hrs</p>
         </div>
     )
 
