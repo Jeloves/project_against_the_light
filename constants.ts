@@ -33,3 +33,15 @@ export const title_mission_type_6 = "raid";
 export const title_mission_type_7 = "reconaissance";
 export const title_mission_type_8 = "rescue";
 export const title_mission_type_9 = "scavenge";
+
+export const id_mission_type_0 = "id_mission_type_1";
+export const id_mission_type_1 = "id_mission_type_2";
+export const id_mission_type_2 = "id_mission_type_3";
+export const id_mission_type_3 = "id_mission_type_4";
+export const id_mission_type_4 = "id_mission_type_5";
+export const id_mission_type_5 = "id_mission_type_6";
+export const id_mission_type_6 = "id_mission_type_7";
+export const id_mission_type_7 = "id_mission_type_8";
+export const id_mission_type_8 = "id_mission_type_9";
+export const id_mission_type_9 = "id_mission_type_10";
+

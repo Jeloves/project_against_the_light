@@ -4,8 +4,11 @@ import { title_resource_0, title_resource_1, title_resource_2, title_resource_3,
 import TimeControl from "@/components/world-map/TimeControl";
 import OperationsWindow from "@/components/world-map/OperationsWindow";
 import { sampleMissions } from "@/utils/sample-data";
+import { generateMissionSelection } from "@/missions/mission_generation";
 
 const WorldMap = () => {
+
+    generateMissionSelection("MD", 1000, 1000)
     return (
         <main className={styles.container}>
             <div className={styles.topbar}>
