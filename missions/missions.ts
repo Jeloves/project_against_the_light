@@ -11,7 +11,7 @@ export type USStateAbbreviation =
 
 
 export class TemplateMission {
-    private name: string;
+    private title: string;
     private location: string;
     private state: USStateAbbreviation;
     private objectives: string;
@@ -26,7 +26,7 @@ export class TemplateMission {
     private squad: string[];                // Array of character ids
 
     constructor(
-        name: string,
+        title: string,
         location: string,
         state: USStateAbbreviation,
         objectives: string,
@@ -39,7 +39,7 @@ export class TemplateMission {
         squadLimit: number,
         squad: string[]
     ) {
-        this.name = name;
+        this.title = title;
         this.location = location;
         this.state = state;
         this.objectives = objectives;
@@ -54,8 +54,8 @@ export class TemplateMission {
         this.squad = squad;
     }
 
-    getName(): string { return this.name; }
-    setName(name: string): void { this.name = name; }
+    getTitle(): string { return this.title; }
+    setTitle(name: string): void { this.title = name; }
 
     getLocation(): string { return this.location; }
     setLocation(location: string): void { this.location = location; }

@@ -1,7 +1,7 @@
-export function getRandomUniqueIndices(maxIndex: number, count: number): number[] {
+export function getRandomUniqueIndices(totalItems: number, count: number): number[] {
 
     const result = [];
-    const numbers = Array.from({ length: maxIndex }, (_, i) => i); 
+    const numbers = Array.from({ length: totalItems }, (_, i) => i); 
 
     while (result.length < count) {
         const randomIndex = Math.floor(Math.random() * numbers.length);
@@ -11,4 +11,8 @@ export function getRandomUniqueIndices(maxIndex: number, count: number): number[
     }
 
     return result;
+}
+
+export function getRandomIndex(totalItems: number): number {
+    return Math.floor(Math.random() * totalItems);
 }

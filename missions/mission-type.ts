@@ -1,4 +1,4 @@
-enum MissionType {
+export enum MissionType {
     assault = "assault",
     counter_reconnaissance = "counter-reconnaissance",
     defense = "defense",
