@@ -11,12 +11,15 @@ export type ResourceInventoryState = {
 }
 
 export type ResourceInventoryAction =
-    | { type: 'INCREASE_RESOURCE'; payload: { resource: PrimaryResource, addend: number } }
-    | { type: 'TOGGLE_PAUSE' };
+    | { type: 'INCREASE_RESOURCE'; payload: { resource: PrimaryResource.rations | PrimaryResource.supplies | PrimaryResource.intel, addend: number } }
+    | { type: 'DECREASE_RESOURCE'; payload: { resource: PrimaryResource.rations | PrimaryResource.supplies | PrimaryResource.intel, subtrahend: number } }
+    | { type: 'ADD_ID'; payload: { resource: PrimaryResource.soldiers | PrimaryResource.civilians | PrimaryResource.facilities, ids: string[] } }
+    | { type: 'REMOVE_ID'; payload: { resource: PrimaryResource.soldiers | PrimaryResource.civilians | PrimaryResource.facilities, ids: string[] } };
 
 
 export const resourceInventoryReducer = (state: ResourceInventoryState, action: ResourceInventoryAction): ResourceInventoryState => {
     switch (action.type) {
+        // Adding to rations, supplies, or intel
         case 'INCREASE_RESOURCE':
             switch (action.payload.resource) {
                 case PrimaryResource.rations:
@@ -26,12 +29,51 @@ export const resourceInventoryReducer = (state: ResourceInventoryState, action: 
                 case PrimaryResource.intel:
                     return { ...state, intel: state.intel + action.payload.addend };
                 default:
-                    console.error("INCREASE_RESOURCE default value***")
-                    break;
+                    console.error("Unhandled resource type in INCREASE_RESOURCE:", action.payload.resource);
+                    return state;
+            }
+        // Subtracting from rations, supplies, or intel
+        case 'DECREASE_RESOURCE':
+            switch (action.payload.resource) {
+                case PrimaryResource.rations:
+                    return { ...state, rations: state.rations - action.payload.subtrahend };
+                case PrimaryResource.supplies:
+                    return { ...state, supplies: state.supplies - action.payload.subtrahend };
+                case PrimaryResource.intel:
+                    return { ...state, intel: state.intel - action.payload.subtrahend };
+                default:
+                    console.error("Unhandled resource type in DECREASE_RESOURCE:", action.payload.resource);
+                    return state;
+            }
+        // Adding new IDs to soldier, civilian, or facility ids.
+        case 'ADD_ID':
+            switch (action.payload.resource) {
+                case PrimaryResource.soldiers:
+                    return { ...state, soldierIDs: [...state.soldierIDs, ...action.payload.ids].filter((value, index, self) => self.indexOf(value) === index) };
+                case PrimaryResource.civilians:
+                    return { ...state, civilianIDs: [...state.civilianIDs, ...action.payload.ids].filter((value, index, self) => self.indexOf(value) === index) };
+                case PrimaryResource.facilities:
+                    return { ...state, facilityIDs: [...state.facilityIDs, ...action.payload.ids].filter((value, index, self) => self.indexOf(value) === index) };
+                default:
+                    console.error("Unhandled resource type in ADD_ID:", action.payload.resource);
+                    return state;
+            }
+        // Removing IDs from soldier, civilian, or facility ids.
+        case 'REMOVE_ID':
+            switch (action.payload.resource) {
+                case PrimaryResource.soldiers:
+                    return { ...state, soldierIDs: state.soldierIDs.filter(id => !action.payload.ids.includes(id)) };
+                case PrimaryResource.civilians:
+                    return { ...state, civilianIDs: state.civilianIDs.filter(id => !action.payload.ids.includes(id)) };
+                case PrimaryResource.facilities:
+                    return { ...state, facilityIDs: state.facilityIDs.filter(id => !action.payload.ids.includes(id)) };
+                default:
+                    console.error("Unhandled resource type in REMOVE_ID:", action.payload.resource);
+                    return state;
             }
         default:
-            console.error("INCREASE_RESOURCE default value")
-            break;
+            console.error("Unhandled action type in resourceInventoryReducer.");
+            return state;
     }
 };
 
@@ -46,24 +88,4 @@ export const useResourceInventoryContext = () => {
     }
 
     return context;
-}
-
-export function increaseResource(state: ResourceInventoryState, action: ResourceInventoryAction, resource: PrimaryResource, addend: number) {
-    switch (resource) {
-        case PrimaryResource.rations:
-            return { ...state, resources: state.rations + addend };
-        case PrimaryResource.supplies:
-            break;
-        case PrimaryResource.intel:
-            break;
-        case PrimaryResource.soldiers:
-            break;
-        case PrimaryResource.civilians:
-            break;
-        case PrimaryResource.facilities:
-            break;
-        default:
-            console.error("Failed to increase resource amount: Default value.")
-            break;
-    }
 }

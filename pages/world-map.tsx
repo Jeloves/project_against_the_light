@@ -4,12 +4,13 @@ import TimeControl from "@/components/world-map/TimeControl";
 import { useResourceInventoryContext } from "@/context/ResourceInventoryContext";
 import ResourcePanel from "@/components/world-map/ResourcePanel";
 import { PrimaryResource } from "@/game/resources/resources";
+import { v4 as uuidv4 } from 'uuid';
 
 const WorldMap = () => {
     const { resourceInventoryState, dispatchResourceInventory } = useResourceInventoryContext();
 
     const onClickMe = () => {
-        dispatchResourceInventory({ type: 'INCREASE_RESOURCE', payload:{resource: PrimaryResource.supplies, addend: 25} })
+        dispatchResourceInventory({ type: 'REMOVE_ID', payload:{resource: PrimaryResource.civilians, ids: ["John Decker"]} })
     }
 
     const pauseplayTime = (isPaused: boolean) => {
