@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+
+    button {
+        all: unset;  /* Reset all properties */
+        display: inline-block;
+        cursor: pointer;
+    }
+}
+
+.datetime {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
