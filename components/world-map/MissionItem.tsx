@@ -15,7 +15,7 @@ const MissionItem = ({ mission }: MissionItemProp) => {
     return (
         <div className={styles.container}>
             <div className={styles.emblem}>
-                <Image src={mission.getEmblemURL()} alt="Emblem Icon" width={32} height={32} />
+                <Image src={mission.getEmblemURL()} alt="Emblem Icon" width={40} height={40} />
             </div>
 
             <div className={styles.subcontainer}>

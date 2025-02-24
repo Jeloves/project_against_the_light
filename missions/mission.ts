@@ -73,7 +73,7 @@ export class Mission {
     getEmblemURL(): string {
         return this.emblemURL;
     }
-    setIcon(icon: string): void {
+    setEmblemURL(icon: string): void {
         this.emblemURL = icon;
     }
 }

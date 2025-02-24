@@ -23,6 +23,7 @@ export const url_resource_5 = "/icons/people.svg";
 // Mission Terminology
 export const label_mission = "operation";
 export const label_missions = "operations";
+
 export const title_mission_type_0 = "assault";
 export const title_mission_type_1 = "counter-reconaissance";
 export const title_mission_type_2 = "defense";

@@ -12,7 +12,6 @@ export function generateMission() {
 export function generateInstateMission(state: USStateAbbreviation, type: string) {
     const title = getMissionTitle();
     const location = getRandomLocationByState(state);
-
 }
 
 export function generateMissionSelection(state: USStateAbbreviation, totalTravelTime: number, expirationTime: number) {
