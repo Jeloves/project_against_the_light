@@ -1,4 +1,5 @@
 import styles from "@/styles/world-map.module.scss";
+import { GameContext, useGameContext } from "@/context/GameContext";
 import ResourceMeter from "@/components/world-map/ResourceMeter";
 import { title_resource_0, title_resource_1, title_resource_2, title_resource_3, title_resource_4, title_resource_5 } from "@/constants";
 import TimeControl from "@/components/world-map/TimeControl";
@@ -7,10 +8,29 @@ import { sampleMissions } from "@/utils/sample-data";
 import { generateMissionSelection } from "@/missions/mission_generation";
 
 const WorldMap = () => {
+    const { state, dispatch } = useGameContext();
 
-    generateMissionSelection("MD", 1000, 1000)
+    const onClickMe = () => {
+        console.log("Current Resources", state.resources)
+        dispatch({ type: 'INCREASE_RESOURCES', payload: 10 })
+        console.log("After", state.resources)
+    }
+
+    const pauseplayTime = (isPaused: boolean) => {
+        if (isPaused) {
+            console.log("Game is paused.")
+        } else {
+            console.log("Game has resumed.")
+        }
+    }
+
+    const fastforwardTime = (newSpeed: number) => {
+        console.log("Increased to " + newSpeed + "x time speed.")
+    }
+
     return (
         <main className={styles.container}>
+            <button onClick={onClickMe}>Click me!</button>
             <div className={styles.topbar}>
                 <div className={styles.resources}>
                     <ResourceMeter resourceType={title_resource_0} />
@@ -33,18 +53,8 @@ const WorldMap = () => {
             </div>
         </main>
     );
-};
-
-const pauseplayTime = (isPaused: boolean) => {
-    if (isPaused) {
-        console.log("Game is paused.")
-    } else {
-        console.log("Game has resumed.")
-    }
 }
 
-const fastforwardTime = (newSpeed: number) => {
-    console.log("Increased to " + newSpeed + "x time speed.")
-}
+
 
 export default WorldMap;
