@@ -3,18 +3,13 @@ import Image from "next/image";
 import TimeControl from "@/components/world-map/TimeControl";
 import { useResourceInventoryContext } from "@/context/ResourceInventoryContext";
 import ResourcePanel from "@/components/world-map/ResourcePanel";
+import { PrimaryResource } from "@/game/resources/resources";
 
 const WorldMap = () => {
     const { resourceInventoryState, dispatchResourceInventory } = useResourceInventoryContext();
 
     const onClickMe = () => {
-        console.log("----RESOURCES----");
-        console.log("Rations: ", resourceInventoryState.rations);
-        console.log("Supplies: ", resourceInventoryState.supplies);
-        console.log("Intel: ", resourceInventoryState.intel);
-        console.log("Soldiers: ", resourceInventoryState.soldierIDs);
-        console.log("Civilians: ", resourceInventoryState.civilianIDs);
-        console.log("Facilities: ", resourceInventoryState.facilityIDs);
+        dispatchResourceInventory({ type: 'INCREASE_RESOURCE', payload:{resource: PrimaryResource.supplies, addend: 25} })
     }
 
     const pauseplayTime = (isPaused: boolean) => {
@@ -47,6 +42,8 @@ const WorldMap = () => {
                 <Image src='/icons/tools.svg' alt="Resource Icon" width={24} height={24} />
                 <Image src='/icons/sample_emblem.svg' alt="Resource Icon" width={24} height={24} />
             </div>
+
+            <button className={styles.sample} onClick={onClickMe}>click me</button>
 
         </main>
     );
