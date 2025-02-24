@@ -2,7 +2,7 @@ import { getResourceTypeByIndex, ResourceType } from "@/resources/resource-types
 import { MissionType } from "./mission-type";
 import { getRandomIndex, getRandomUniqueIndices } from "@/utils/math";
 
-export type MissionReward {
+export type MissionReward = {
     resource: ResourceType;
     amount: number;
 }

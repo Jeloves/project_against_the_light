@@ -1,19 +1,16 @@
 import styles from "@/styles/world-map.module.scss";
-import { GameContext, useGameContext } from "@/context/GameContext";
-import ResourceMeter from "@/components/world-map/ResourceMeter";
-import { title_resource_0, title_resource_1, title_resource_2, title_resource_3, title_resource_4, title_resource_5 } from "@/constants";
+import Image from "next/image";
 import TimeControl from "@/components/world-map/TimeControl";
-import OperationsWindow from "@/components/world-map/OperationsWindow";
-import { sampleMissions } from "@/utils/sample-data";
-import { generateMissionSelection } from "@/missions/mission_generation";
+import { useResourceInventoryContext } from "@/context/ResourceInventoryContext";
+import ResourcePanel from "@/components/world-map/ResourcePanel";
+import { PrimaryResource } from "@/game/resources/resources";
+import { v4 as uuidv4 } from 'uuid';
 
 const WorldMap = () => {
-    const { state, dispatch } = useGameContext();
+    const { resourceInventoryState, dispatchResourceInventory } = useResourceInventoryContext();
 
     const onClickMe = () => {
-        console.log("Current Resources", state.resources)
-        dispatch({ type: 'INCREASE_RESOURCES', payload: 10 })
-        console.log("After", state.resources)
+        dispatchResourceInventory({ type: 'REMOVE_ID', payload:{resource: PrimaryResource.civilians, ids: ["John Decker"]} })
     }
 
     const pauseplayTime = (isPaused: boolean) => {
@@ -27,19 +24,36 @@ const WorldMap = () => {
     const fastforwardTime = (newSpeed: number) => {
         console.log("Increased to " + newSpeed + "x time speed.")
     }
-
     return (
         <main className={styles.container}>
-            <button onClick={onClickMe}>Click me!</button>
             <div className={styles.topbar}>
-                <div className={styles.resources}>
-                    <ResourceMeter resourceType={title_resource_0} />
-                    <ResourceMeter resourceType={title_resource_1} />
-                    <ResourceMeter resourceType={title_resource_2} />
-                    <ResourceMeter resourceType={title_resource_3} />
-                    <ResourceMeter resourceType={title_resource_4} />
-                    <ResourceMeter resourceType={title_resource_5} />
-                </div>
+                <ResourcePanel />
+                <TimeControl pauseplayTime={pauseplayTime} fastForwardTime={fastforwardTime} />
+            </div>
+
+            <div className={styles.sidemenu}>
+                <Image src='/icons/apple.svg' alt="Resource Icon" width={24} height={24} />
+                <Image src='/icons/beaker.svg' alt="Resource Icon" width={24} height={24} />
+                <Image src='/icons/people.svg' alt="Resource Icon" width={24} height={24} />
+                <Image src='/icons/tools.svg' alt="Resource Icon" width={24} height={24} />
+                <Image src='/icons/sample_emblem.svg' alt="Resource Icon" width={24} height={24} />
+                <Image src='/icons/apple.svg' alt="Resource Icon" width={24} height={24} />
+                <Image src='/icons/beaker.svg' alt="Resource Icon" width={24} height={24} />
+                <Image src='/icons/people.svg' alt="Resource Icon" width={24} height={24} />
+                <Image src='/icons/tools.svg' alt="Resource Icon" width={24} height={24} />
+                <Image src='/icons/sample_emblem.svg' alt="Resource Icon" width={24} height={24} />
+            </div>
+
+            <button className={styles.sample} onClick={onClickMe}>click me</button>
+
+        </main>
+    );
+
+    /*
+    return (
+        <main className={styles.container}>
+            <div className={styles.topbar}>
+                <ResourcePanel />
                 <TimeControl pauseplayTime={pauseplayTime} fastForwardTime={fastforwardTime} />
             </div>
             <div className={styles.midbar}>
@@ -53,6 +67,7 @@ const WorldMap = () => {
             </div>
         </main>
     );
+    */
 }
 
 

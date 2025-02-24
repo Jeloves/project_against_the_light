@@ -13,12 +13,12 @@ export const title_resource_5 = "population"
 export const title_resource_5p = "population"
 
 // Image URLS
-export const url_resource_0 = "/icons/supply.svg";
-export const url_resource_1 = "/icons/antenna.svg";
-export const url_resource_2 = "/icons/apple.svg";
-export const url_resource_3 = "/icons/beaker.svg";
-export const url_resource_4 = "/icons/tools.svg";
-export const url_resource_5 = "/icons/people.svg";
+export const url_rations = "/icons/rations.svg";
+export const url_supplies = "/icons/supplies.svg";
+export const url_intel = "/icons/intel.svg";
+export const url_soldiers = "/icons/soldiers.svg";
+export const url_civilians = "/icons/civilians.svg";
+export const url_facilities = "/icons/facilities.svg";
 
 // Mission Terminology
 export const label_mission = "operation";
