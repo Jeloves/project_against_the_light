@@ -2,8 +2,7 @@ import { ResourceInventory } from "@/game/resources/resources";
 import { createContext, useContext } from "react";
 
 export type GameState = {
-    resources: ResourceInventory;
-
+    data: number;
 };
 
 export type Action =
