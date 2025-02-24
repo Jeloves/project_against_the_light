@@ -1,45 +1,59 @@
-import React, { ReactNode, useState } from "react";
+import React, {  } from "react";
 import Image from "next/image";
 import styles from "./ResourceMeter.module.scss"
-import { title_resource_0, title_resource_1, title_resource_2, title_resource_3, title_resource_4, title_resource_5, url_resource_0, url_resource_1, url_resource_2, url_resource_3, url_resource_4, url_resource_5 } from "@/constants";
+import { url_civilians, url_facilities, url_intel, url_rations, url_soldiers, url_supplies } from "@/constants";
+import { PrimaryResource } from "@/game/resources/resources";
+import { useResourceInventoryContext } from "@/context/ResourceInventoryContext";
+
 type ResourceMeterProp = {
-    resourceType: string;
+    resource: PrimaryResource;
 };
 
-const ResourceMeter = (props: ResourceMeterProp) => {
+const ResourceMeter = ({ resource }: ResourceMeterProp) => {
+    const { resourceInventoryState, dispatchResourceInventory } = useResourceInventoryContext();
+    
     let iconURL: string;
-    switch (props.resourceType) {
-        case title_resource_0:
-            iconURL = url_resource_0;
+    let displayValue: any;
+    switch (resource) {
+        case PrimaryResource.rations:
+            iconURL = url_rations;
+            displayValue = resourceInventoryState.rations;
             break;
-        case title_resource_1:
-            iconURL = url_resource_1;
+        case PrimaryResource.supplies:
+            iconURL = url_supplies;
+            displayValue = resourceInventoryState.supplies;
             break;
-        case title_resource_2:
-            iconURL = url_resource_2;
+        case PrimaryResource.intel:
+            iconURL = url_intel;
+            displayValue = resourceInventoryState.intel;
             break;
-        case title_resource_3:
-            iconURL = url_resource_3;
+        case PrimaryResource.soldiers:
+            iconURL = url_soldiers;
+            displayValue = resourceInventoryState.soldierIDs.length;
             break;
-        case title_resource_4:
-            iconURL = url_resource_4;
+        case PrimaryResource.civilians:
+            iconURL = url_civilians;
+            displayValue = resourceInventoryState.civilianIDs.length;
             break;
-        case title_resource_5:
-            iconURL = url_resource_5;
+        case PrimaryResource.facilities:
+            iconURL = url_facilities;
+            displayValue = resourceInventoryState.facilityIDs.length;
             break;
         default:
             iconURL = "";
+            displayValue = "ERROR"
             break;
     }
+    
 
     return (
         <div className={styles.container}>
-            
+
             <div className={styles.icon}>
                 <Image src={iconURL} alt="Resource Icon" width={24} height={24} />
             </div>
 
-            <p className={styles.values}>0</p>
+            <p className={styles.values}>{displayValue}</p>
         </div>
     )
 

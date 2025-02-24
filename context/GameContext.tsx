@@ -1,25 +1,21 @@
+import { ResourceInventory } from "@/game/resources/resources";
 import { createContext, useContext } from "react";
 
 export type GameState = {
-    resources: number;
-    time: string;
-    isPaused: boolean;
+    resources: ResourceInventory;
+
 };
 
 export type Action =
-    | { type: 'INCREASE_RESOURCES'; payload: number }
-    | { type: 'SET_TIME'; payload: string }
+    | { type: 'ADD_NUMERICAL_RESOURCE'; payload: string }
     | { type: 'TOGGLE_PAUSE' };
 
 
 export const gameReducer = (state: GameState, action: Action): GameState => {
     switch (action.type) {
-        case 'INCREASE_RESOURCES':
-            return { ...state, resources: state.resources + action.payload };
-        case 'SET_TIME':
-            return { ...state, time: action.payload };
-        case 'TOGGLE_PAUSE':
-            return { ...state, isPaused: !state.isPaused };
+        case 'ADD_NUMERICAL_RESOURCE':
+            
+        break;
         default:
             return state;
     }
@@ -31,11 +27,11 @@ export const GameContext = createContext<{ state: GameState; dispatch: React.Dis
 export const useGameContext = () => {
     // Access the context value using useContext hook
     const context = useContext(GameContext);
-  
+
     // Throw an error if the context is used outside of a provider
     if (!context) {
-      throw new Error('useGameContext must be used within a GameProvider');
+        throw new Error('useGameContext must be used within a GameProvider');
     }
-  
+
     return context; // Return the context value (state and dispatch)
-  };
+};
