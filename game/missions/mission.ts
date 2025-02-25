@@ -1,8 +1,9 @@
 import { MissionType } from "@/game/missions/mission-type";
 import { USStateAbbreviation } from "../map/USStateAbbreviation";
 import { Timestamp } from "../time/timestamp";
-export class Mission {
+import { MissionStatus } from "./MissionStatus";
 
+export class Mission {
     private id: string;
     private type: MissionType;
     private name: string;
@@ -15,9 +16,12 @@ export class Mission {
     private soldierLimit: number;
     private enemyLimit: number;
     private soldierIDs: string[] = [];
+    private discoveryDate: Timestamp; 
     private expirationDate: Timestamp | null;           // Urgency
+    private expirationTimeRemaining: number | null = null;
     private arrivalDate: Timestamp;                     // Distance
-    private timeTraveled: number = 0;
+    private travelTimeRemaining: number | null = null;         // seconds
+    private status: MissionStatus = MissionStatus.available;                
 
     constructor(
         id: string,
@@ -31,6 +35,7 @@ export class Mission {
         description: string,
         soldierLimit: number,
         enemyLimit: number,
+        discoveryDate: Timestamp | null,
         expirationDate: Timestamp | null,
         arrivalDate: Timestamp
     ) {
@@ -45,8 +50,13 @@ export class Mission {
         this.description = description;
         this.soldierLimit = soldierLimit;
         this.enemyLimit = enemyLimit;
+        this.discoveryDate = discoveryDate;
         this.expirationDate = expirationDate;
         this.arrivalDate = arrivalDate;
+
+        if (expirationDate) {
+            this.expirationTimeRemaining = expirationDate.secondsFromEpoch - arrivalDate.secondsFromEpoch;
+        }
     }
 
     public getId(): string {
@@ -132,11 +142,25 @@ export class Mission {
         this.soldierIDs = soldierIDs;
     }
 
+    public getDiscoveryDate(): Timestamp | null {
+        return this.discoveryDate;
+    }
+    public setDiscoveryDate(discoveryDate: Timestamp | null): void {
+        this.discoveryDate = discoveryDate;
+    }
+
     public getExpirationDate(): Timestamp | null {
         return this.expirationDate;
     }
     public setExpirationDate(expirationDate: Timestamp | null): void {
         this.expirationDate = expirationDate;
+    }
+
+    public getExpirationTimeRemaining() : number | null {
+        return this.expirationTimeRemaining;
+    }
+    public setExpirationTimeRemaining(secondsRemaining: number | null) {
+        this.expirationTimeRemaining = secondsRemaining;
     }
 
     public getArrivalDate(): Timestamp {
@@ -146,10 +170,52 @@ export class Mission {
         this.arrivalDate = arrivalDate;
     }
 
-    public getTimeTraveled(): number {
-        return this.timeTraveled;
+    public getTravelTimeRemaining(): number | null {
+        return this.travelTimeRemaining;
     }
-    public setTimeTraveled(timeTraveled: number): void {
-        this.timeTraveled = timeTraveled;
+    public setTravelTimeRemaining(secondsRemaining: number | null): void {
+        this.travelTimeRemaining = secondsRemaining;
     }
+
+    public getStatus(): MissionStatus {
+        return this.status;
+    }
+    public setStatus(status: MissionStatus): void {
+        this.status = status;
+    }
+}
+
+export function getActiveMissions(missions: Mission[], includeHidden: boolean = true): Mission[] {
+    let activeMissions = [];
+    for (let mission of missions) {
+        if (
+            mission.getStatus() === MissionStatus.available ||
+            mission.getStatus() === MissionStatus.deployed ||
+            mission.getStatus() === MissionStatus.engaged ||
+            mission.getStatus() === MissionStatus.order
+        ) {
+
+            if (mission.getStatus() === MissionStatus.hidden) {
+                includeHidden ? activeMissions.push(mission) : null;
+            } else {
+                activeMissions.push(mission);
+            }
+        } 
+    }
+    return activeMissions;
+}
+
+export function orderMissionsByType(missions: Mission[]): Map<MissionType, Mission[]> {
+    const missionsTypeMap = new Map<MissionType, Mission[]>();
+    for (let mission of missions) {
+        if (missionsTypeMap.has(mission.getType())) {
+            const updatedMissions = [...missionsTypeMap.get(mission.getType())];
+            updatedMissions.push(mission);
+            missionsTypeMap.set(mission.getType(), updatedMissions);
+        } else {
+            missionsTypeMap.set(mission.getType(), [mission]);
+        }
+    }
+
+    return missionsTypeMap;
 }

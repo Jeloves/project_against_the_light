@@ -1,0 +1,28 @@
+.container {
+    background-color: green;
+    height: 75%;
+    width: fit-content;
+    position: absolute;
+    top: 50%; /* Move to the middle of the parent */
+    transform: translateY(-50%); /* Offset by half its own height to center it */
+    bottom: 0;
+    right: 0;
+    padding: 16px;
+    overflow: auto;
+
+    .header {
+        margin: 0;
+        position: absolute;
+        top: 0;
+        height: 6%;
+        display: flex;
+        align-items: center;
+    }
+}
+.container::-webkit-scrollbar {
+    display: none; /* Hide the scrollbar */
+}
+
+.subcontainer {
+    margin-top: calc(6% + 16px);
+}

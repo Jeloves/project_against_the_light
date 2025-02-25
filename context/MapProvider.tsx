@@ -1,7 +1,5 @@
 import { ReactNode, useReducer } from "react";
-import { ResourceInventory } from "@/game/resources/resources";
 import { MapContext, mapReducer, MapState } from "./MapContext";
-import { GameContext } from "./GameContext";
 import { createAllDefaultStateProfiles } from "@/game/map/StateProfile";
 
 type MapProviderProps = {
@@ -10,13 +8,14 @@ type MapProviderProps = {
 
 const MapProvider: React.FC<MapProviderProps> = ({ children }) => {
   const initialState: MapState = {
-    stateProfiles: createAllDefaultStateProfiles()
+    stateProfiles: createAllDefaultStateProfiles(),
+    missions: []
   };
 
-  const [state, dispatch] = useReducer(mapReducer, initialState);
+  const [mapState, dispatchMap] = useReducer(mapReducer, initialState);
 
   return (
-    <MapContext.Provider value={{ state, dispatch }}>
+    <MapContext.Provider value={{ mapState, dispatchMap }}>
       {children}
     </MapContext.Provider>
   );

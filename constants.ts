@@ -49,3 +49,4 @@ export const id_mission_type_9 = "id_mission_type_10";
 // Measurements
 export const seconds_per_day = 3600;
 export const seconds_per_non_leap_year = 31536000;
+export const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];

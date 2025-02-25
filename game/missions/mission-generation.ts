@@ -141,7 +141,7 @@ function generateRandomMission(
         }
         let enemyLimit = getEnemyLimitFromPresence(enemyPresenceValues);
 
-        return new Mission(id, type, name, discoveryState, operationState, location, objectives, optionals, description, soldierLimit, enemyLimit, expirationDate, arrivalDate);
+        return new Mission(id, type, name, discoveryState, operationState, location, objectives, optionals, description, soldierLimit, enemyLimit, date, expirationDate, arrivalDate);
 
     } else {
         throw new Error("Failed to find matching operation state.");
