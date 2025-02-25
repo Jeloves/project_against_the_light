@@ -6,14 +6,25 @@ import ResourcePanel from "@/components/world-map/ResourcePanel";
 import { PrimaryResource } from "@/game/resources/resources";
 import MissionPanel from "@/components/world-map/MissionPanel";
 import { useMapContext } from "@/context/MapContext";
+import { useState } from "react";
 
 const WorldMap = () => {
     const { resourceInventoryState, dispatchResourceInventory } = useResourceInventoryContext();
     const { mapState, dispatchMap } = useMapContext();
 
+    const [test, isTest] = useState<boolean>(true);
+
     const onClickMe = () => {
-        dispatchMap({ type: 'CREATE_DEFAULT_MISSION'});
+        dispatchMap({ type: 'SAMPLE_ACTION' });
     }
+
+    if (test) {
+        for (let i = 0; i < 5; i++) {
+            dispatchMap({ type: 'CREATE_DEFAULT_MISSION' });
+        }
+        isTest(false)
+    }
+
 
     const pauseplayTime = (isPaused: boolean) => {
         if (isPaused) {
@@ -45,8 +56,8 @@ const WorldMap = () => {
                 <Image src='/icons/tools.svg' alt="Resource Icon" width={24} height={24} />
                 <Image src='/icons/sample_emblem.svg' alt="Resource Icon" width={24} height={24} />
             </div>
-            
-            <MissionPanel/>
+
+            <MissionPanel />
 
             <button className={styles.sample} onClick={onClickMe}>click me</button>
 

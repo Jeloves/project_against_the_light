@@ -13,8 +13,9 @@ export type MapState = {
 };
 
 export type MapAction =
-    | { type: "CREATE_DEFAULT_MISSION"}
-
+    | { type: "CREATE_DEFAULT_MISSION" }
+    | { type: "SAMPLE_ACTION" }
+    ;
 
 export const mapReducer = (state: MapState, action: MapAction): MapState => {
     switch (action.type) {
@@ -35,7 +36,37 @@ export const mapReducer = (state: MapState, action: MapAction): MapState => {
                 createTimestamp(7200),
                 createTimestamp(1200)
             );
-            return {...state, missions: [...state.missions, ...[defaultMission]]};
+            return { ...state, missions: [...state.missions, defaultMission] };
+        case "SAMPLE_ACTION":
+            const updatedMissions = state.missions.map((mission, index) => {
+                if (index === 0) {
+                    const newExpirationTime = mission.getExpirationTimeRemaining() - 1;
+
+                    const updatedMission = new Mission(
+                        mission.getId(),
+                        mission.getType(),
+                        mission.getName(),
+                        mission.getDiscoveryState(),
+                        mission.getOperationState(),
+                        mission.getLocation(),
+                        mission.getObjectives(),
+                        mission.getOptionals(),
+                        mission.getDescription(),
+                        mission.getSoldierLimit(),
+                        mission.getEnemyLimit(),
+                        mission.getDiscoveryDate(),
+                        mission.getExpirationDate(),
+                        mission.getArrivalDate()
+                    );
+
+                    updatedMission.setExpirationTimeRemaining(Math.max(newExpirationTime, 0)); // Ensure expiration time doesn't go below 0
+
+                    return updatedMission;
+                }
+                return mission;
+            });
+
+            return { ...state, missions: updatedMissions };
         default:
             return state;
     }

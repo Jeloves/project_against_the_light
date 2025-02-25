@@ -41,14 +41,24 @@ const MissionItem = ({ missionIndex }: MissionItemProp) => {
             )
             break;
         case MissionStatus.engaged:
+            children.push(
+                <p className={styles.duration}>ONGOING</p>
+            )
             break;
         case MissionStatus.failure:
-            break;
-        case MissionStatus.hidden:
+            children.push(
+                <p className={styles.duration}>FAILED</p>
+            )
             break;
         case MissionStatus.order:
+            children.push(
+                <p className={styles.duration}>!</p>
+            )
             break;
         case MissionStatus.success:
+            children.push(
+                <p className={styles.duration}>SUCCESS</p>
+            )
             break;
         default:
     }
