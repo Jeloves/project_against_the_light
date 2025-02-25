@@ -1,4 +1,4 @@
-import { MissionType } from "@/missions/mission-type";
+import { MissionType } from "@/game/missions/mission-type";
 import { USStateAbbreviation } from "../map/USStateAbbreviation";
 import { Timestamp } from "../time/timestamp";
 export class Mission {
@@ -13,6 +13,7 @@ export class Mission {
     private optionals: string[];
     private description: string;
     private soldierLimit: number;
+    private enemyLimit: number;
     private soldierIDs: string[] = [];
     private expirationDate: Timestamp | null;           // Urgency
     private arrivalDate: Timestamp;                     // Distance
@@ -29,6 +30,7 @@ export class Mission {
         optionals: string[],
         description: string,
         soldierLimit: number,
+        enemyLimit: number,
         expirationDate: Timestamp | null,
         arrivalDate: Timestamp
     ) {
@@ -42,6 +44,7 @@ export class Mission {
         this.optionals = optionals;
         this.description = description;
         this.soldierLimit = soldierLimit;
+        this.enemyLimit = enemyLimit;
         this.expirationDate = expirationDate;
         this.arrivalDate = arrivalDate;
     }
@@ -113,6 +116,13 @@ export class Mission {
     }
     public setSoldierLimit(soldierLimit: number): void {
         this.soldierLimit = soldierLimit;
+    }
+
+    public getEnemyLimit(): number {
+        return this.enemyLimit;
+    }
+    public setEnemyLimit(enemyLimit: number): void {
+        this.enemyLimit = enemyLimit;
     }
 
     public getSoldierIDs(): string[] {

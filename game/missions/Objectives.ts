@@ -1,4 +1,4 @@
-import { MissionType } from "@/missions/mission-type";
+import { MissionType } from "@/game/missions/mission-type";
 
 const missionObjectives = new Map<number, string>();
 
