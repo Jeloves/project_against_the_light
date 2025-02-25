@@ -1,11 +1,5 @@
 import { getRandomIndex } from "@/utils/math";
-
-export type USStateAbbreviation =
-    | "AL" | "AK" | "AZ" | "AR" | "CA" | "CO" | "CT" | "DE" | "FL" | "GA"
-    | "HI" | "ID" | "IL" | "IN" | "IA" | "KS" | "KY" | "LA" | "ME" | "MD"
-    | "MA" | "MI" | "MN" | "MS" | "MO" | "MT" | "NE" | "NV" | "NH" | "NJ"
-    | "NM" | "NY" | "NC" | "ND" | "OH" | "OK" | "OR" | "PA" | "RI" | "SC"
-    | "SD" | "TN" | "TX" | "UT" | "VT" | "VA" | "WA" | "WV" | "WI" | "WY";
+import { USStateAbbreviation } from "./USStateAbbreviation";
 
 const missionLocations: Record<USStateAbbreviation, string[]> = {
     AL: ["Birmingham", "Montgomery", "Huntsville", "Mobile", "Tuscaloosa", "Hoover", "Auburn", "Dothan", "Decatur", "Florence"],

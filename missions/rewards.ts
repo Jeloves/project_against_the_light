@@ -1,5 +1,5 @@
 import { getResourceTypeByIndex, ResourceType } from "@/resources/resource-types";
-import { MissionType } from "./mission-type";
+import { MissionType } from "../game/missions/mission-type";
 import { getRandomIndex, getRandomUniqueIndices } from "@/utils/math";
 
 export type MissionReward = {
