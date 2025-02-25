@@ -3,30 +3,73 @@ import Image from "next/image";
 import styles from "./MissionItem.module.scss"
 import { Mission } from "@/missions/mission";
 import { formatSecondsIntoHours } from "@/utils/format";
+import { useMapContext } from "@/context/MapContext";
+import { expandStateAbbreviation } from "@/game/map/USStateAbbreviation";
+import { MissionStatus } from "@/game/missions/MissionStatus";
 
 type MissionItemProp = {
-    mission: Mission;
+    missionIndex: number;
 };
 
 
-const MissionItem = ({ mission }: MissionItemProp) => {
+const MissionItem = ({ missionIndex }: MissionItemProp) => {
 
+    const { mapState, dispatchMap } = useMapContext();
+
+    const children = []
+
+    children.push(
+        <>
+            <div className={styles.emblem}>
+                <Image src="/icons/sample_emblem.svg" alt="Emblem Icon" width={40} height={40} />
+            </div>
+            <div className={styles.subcontainer}>
+                <h1>{mapState.missions[missionIndex].getName() + "-" + mapState.missions[missionIndex].getStatus().toUpperCase()}</h1>
+                <h2>{mapState.missions[missionIndex].getLocation() + ", " + expandStateAbbreviation(mapState.missions[missionIndex].getOperationState())}</h2>
+            </div>
+        </>
+    )
+    switch (mapState.missions[missionIndex].getStatus()) {
+        case MissionStatus.available:   // Shows expiration countdown
+            children.push(
+                <p className={styles.duration}>{formatSecondsIntoHours(mapState.missions[missionIndex].getExpirationTimeRemaining())} hrs</p>
+            )
+            break;
+        case MissionStatus.deployed:
+            children.push(
+                <p className={styles.duration}>{formatSecondsIntoHours(mapState.missions[missionIndex].getTravelTimeRemaining())} hrs</p>
+            )
+            break;
+        case MissionStatus.engaged:
+            children.push(
+                <p className={styles.duration}>ONGOING</p>
+            )
+            break;
+        case MissionStatus.failure:
+            children.push(
+                <p className={styles.duration}>FAILED</p>
+            )
+            break;
+        case MissionStatus.order:
+            children.push(
+                <p className={styles.duration}>!</p>
+            )
+            break;
+        case MissionStatus.success:
+            children.push(
+                <p className={styles.duration}>SUCCESS</p>
+            )
+            break;
+        default:
+    }
 
     return (
         <div className={styles.container}>
-            <div className={styles.emblem}>
-                <Image src={mission.getEmblemURL()} alt="Emblem Icon" width={40} height={40} />
-            </div>
-
-            <div className={styles.subcontainer}>
-                <h1>{mission.getName()}</h1>
-                <h2>{mission.getDestination()}</h2>
-            </div>
-            <p className={styles.duration}>{formatSecondsIntoHours(mission.getCurrentDuration())} hrs</p>
+            {children}
         </div>
     )
 
 }
-
+//formatSecondsIntoHours(mapState.missions[missionIndex].getTravelTimeRemaining())
 
 export default MissionItem;

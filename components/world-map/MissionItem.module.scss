@@ -1,10 +1,11 @@
 .container {
     display: flex;
     align-items: center;
+    gap: 24px;
 }
 
 .emblem {
-    padding: 8px;
+    display: flex;
 }
 
 .subcontainer {
