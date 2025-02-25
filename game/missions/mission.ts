@@ -1,35 +1,30 @@
+import { MissionType } from "@/missions/mission-type";
+import { USStateAbbreviation } from "../map/USStateAbbreviation";
 import { Timestamp } from "../time/timestamp";
-import { MissionObjective } from "./objectives";
-
-export type USStateAbbreviation =
-    | "AL" | "AK" | "AZ" | "AR" | "CA" | "CO" | "CT" | "DE" | "FL" | "GA"
-    | "HI" | "ID" | "IL" | "IN" | "IA" | "KS" | "KY" | "LA" | "ME" | "MD"
-    | "MA" | "MI" | "MN" | "MS" | "MO" | "MT" | "NE" | "NV" | "NH" | "NJ"
-    | "NM" | "NY" | "NC" | "ND" | "OH" | "OK" | "OR" | "PA" | "RI" | "SC"
-    | "SD" | "TN" | "TX" | "UT" | "VT" | "VA" | "WA" | "WV" | "WI" | "WY";
-
 export class Mission {
 
     private id: string;
+    private type: MissionType;
     private name: string;
     private state: USStateAbbreviation;
     private location: string;
-    private objectives: MissionObjective[];
-    private optionals: MissionObjective[];
+    private objectives: string[];
+    private optionals: string[];
     private description: string;
     private soldierLimit: number;
     private soldierIDs: string[] = [];
-    private expirationDate: Timestamp | null;
-    private arrivalDate: Timestamp;
+    private expirationDate: Timestamp | null;           // Urgency
+    private arrivalDate: Timestamp;                     // Distance
     private timeTraveled: number = 0;
 
     constructor(
         id: string,
         name: string,
+        type: MissionType,
         state: USStateAbbreviation,
         location: string,
-        objectives: MissionObjective[],
-        optionals: MissionObjective[],
+        objectives: string[],
+        optionals: string[],
         description: string,
         soldierLimit: number,
         expirationDate: Timestamp | null,
@@ -37,6 +32,7 @@ export class Mission {
     ) {
         this.id = id;
         this.name = name;
+        this.type = type;
         this.state = state;
         this.location = location;
         this.objectives = objectives;
@@ -61,6 +57,13 @@ export class Mission {
         this.name = name;
     }
 
+    public getType(): MissionType {
+        return this.type;
+    }
+    public setType(type: MissionType): void {
+        this.type = type;
+    }
+
     public getState(): USStateAbbreviation {
         return this.state;
     }
@@ -75,16 +78,16 @@ export class Mission {
         this.location = location;
     }
 
-    public getObjectives(): MissionObjective[] {
+    public getObjectives(): string[] {
         return this.objectives;
     }
-    public setObjectives(objectives: MissionObjective[]): void {
+    public setObjectives(objectives: string[]): void {
         this.objectives = objectives;
     }
-    public getOptionals(): MissionObjective[] {
+    public getOptionals(): string[] {
         return this.optionals;
     }
-    public setOptionals(optionals: MissionObjective[]): void {
+    public setOptionals(optionals: string[]): void {
         this.optionals = optionals;
     }
 

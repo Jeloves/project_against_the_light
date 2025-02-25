@@ -2,7 +2,7 @@ import { getRandomUniqueIndices } from "@/utils/math";
 import { getMissionTypeByIndex, totalMissionTypes } from "./mission-type";
 import { USStateAbbreviation } from "./missions";
 import { getMissionTitle } from "./titles";
-import { getRandomLocationByState } from "./locations";
+import { getRandomLocationByState } from "../game/map/locations";
 
 export function generateMission() {
     
