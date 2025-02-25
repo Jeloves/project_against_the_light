@@ -4,7 +4,6 @@ import TimeControl from "@/components/world-map/TimeControl";
 import { useResourceInventoryContext } from "@/context/ResourceInventoryContext";
 import ResourcePanel from "@/components/world-map/ResourcePanel";
 import { PrimaryResource } from "@/game/resources/resources";
-import { v4 as uuidv4 } from 'uuid';
 
 const WorldMap = () => {
     const { resourceInventoryState, dispatchResourceInventory } = useResourceInventoryContext();
