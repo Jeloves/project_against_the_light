@@ -6,7 +6,8 @@ export class Mission {
     private id: string;
     private type: MissionType;
     private name: string;
-    private state: USStateAbbreviation;
+    private discoveryState: USStateAbbreviation;
+    private operationState: USStateAbbreviation;
     private location: string;
     private objectives: string[];
     private optionals: string[];
@@ -19,9 +20,10 @@ export class Mission {
 
     constructor(
         id: string,
-        name: string,
         type: MissionType,
-        state: USStateAbbreviation,
+        name: string,
+        discoveryState: USStateAbbreviation,
+        operationState: USStateAbbreviation,
         location: string,
         objectives: string[],
         optionals: string[],
@@ -33,7 +35,8 @@ export class Mission {
         this.id = id;
         this.name = name;
         this.type = type;
-        this.state = state;
+        this.discoveryState = discoveryState;
+        this.operationState = operationState;
         this.location = location;
         this.objectives = objectives;
         this.optionals = optionals;
@@ -64,11 +67,18 @@ export class Mission {
         this.type = type;
     }
 
-    public getState(): USStateAbbreviation {
-        return this.state;
+    public getDiscoveryState(): USStateAbbreviation {
+        return this.discoveryState;
     }
-    public setState(state: USStateAbbreviation): void {
-        this.state = state;
+    public setDiscoveryState(state: USStateAbbreviation): void {
+        this.discoveryState = state;
+    }
+
+    public getOperationState(): USStateAbbreviation {
+        return this.operationState;
+    }
+    public setOperationState(state: USStateAbbreviation): void {
+        this.operationState = state;
     }
 
     public getLocation(): string {
