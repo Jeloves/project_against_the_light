@@ -22,7 +22,7 @@ const WorldMap = () => {
     }
 
     if (test) {
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 6; i++) {
             dispatchMap({ type: 'CREATE_DEFAULT_MISSION' });
         }
         isTest(false)

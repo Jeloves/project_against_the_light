@@ -4,6 +4,7 @@ import { getEpochTimestamp, getTimestampBySecondsFromEpoch, Timestamp } from "./
 import { formatSecondsFromEpoch } from "@/utils/format";
 import { Dispatch, SetStateAction } from "react";
 import { MapAction } from "@/context/MapContext";
+import { incrementGameTick } from "./tick";
 
 export class GameClock {
     private epoch: Timestamp = getEpochTimestamp();                     // Custom epoch timestamp (milliseconds)
@@ -12,7 +13,7 @@ export class GameClock {
     private lastUpdateTime: number | null = null;                       // Last frame time (in ms)
     private intervalId: ReturnType<typeof setInterval> | null = null;
     private animationFrameId: number | null = null;                     // Stores the animation frame ID
-    private tickRate: number = TickRate.real;                                    // Tick rate in ms
+    private tickRate: number = TickRate.default;                                    // Tick rate in ms
     private _isPaused: boolean = true;
     private dispatch: () => void | null = null;
 
@@ -57,7 +58,8 @@ export class GameClock {
                 if (this.dispatch !== null) {
                     this.dispatch();
                 }
-                console.log("Tick: ", this.elapsedSeconds)
+
+                console.log("Tick", this.elapsedSeconds)
             }
         }
 
@@ -99,6 +101,9 @@ export class GameClock {
             default:
                 throw new Error("Unhandled case: Failed to set tick rate.");
         }
+    }
+    getTickRate(): TickRate {
+        return this.tickRate;
     }
 
     readData(): { epoch: Timestamp, elapsedSeconds: number, lastUpdateCount: number, lastUpdateTime: number, intervalId: ReturnType<typeof setInterval> | null, animationFrameId: number | null, tickRate: number, _isPaused: boolean } {

@@ -8,8 +8,8 @@ export enum GameSpeed {
 const baseTickRate = 1;
 export enum TickRate {
     real = baseTickRate,
-    slow = baseTickRate * 225,
-    default = baseTickRate * 450,
-    fast = baseTickRate * 600
+    slow = baseTickRate * 2,
+    default = baseTickRate * 5,
+    fast = baseTickRate * 10
 }
 

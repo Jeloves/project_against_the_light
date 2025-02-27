@@ -16,6 +16,7 @@ const MissionItem = ({ missionIndex }: MissionItemProp) => {
 
     const { mapState, dispatchMap } = useMapContext();
 
+
     const children = []
 
     children.push(
@@ -63,13 +64,20 @@ const MissionItem = ({ missionIndex }: MissionItemProp) => {
         default:
     }
 
-    return (
-        <div className={styles.container}>
-            {children}
-        </div>
-    )
+    if (missionIndex === 0) {
+        return (
+            <div className={styles.hidden}>
+                {children}
+            </div>
+        )
+    } else {
+        return (
+            <div className={styles.container}>
+                {children}
+            </div>
+        )
+    }
 
 }
-//formatSecondsIntoHours(mapState.missions[missionIndex].getTravelTimeRemaining())
 
 export default MissionItem;

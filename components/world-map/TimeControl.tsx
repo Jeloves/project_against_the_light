@@ -27,6 +27,7 @@ const TimeControl = ({ clock, pauseplayTime, fastForwardTime }: TimeControlProp)
         dispatchMap({type: "SET_CLOCK_DISPATCH", payload: 
             () => {
                 dispatchMap({type: "INCREMENT_SECONDS_FROM_EPOCH"});
+                dispatchMap({type: "DECREMENT_MISSION_TIMERS", payload: mapState.clock.getTickRate()});
             }
         })
     }

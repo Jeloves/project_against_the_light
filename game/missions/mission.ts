@@ -16,12 +16,12 @@ export class Mission {
     private soldierLimit: number;
     private enemyLimit: number;
     private soldierIDs: string[] = [];
-    private discoveryDate: Timestamp; 
+    private discoveryDate: Timestamp;
     private expirationDate: Timestamp | null;           // Urgency
     private expirationTimeRemaining: number | null = null;
     private arrivalDate: Timestamp;                     // Distance
     private travelTimeRemaining: number | null = null;         // seconds
-    private status: MissionStatus = MissionStatus.available;                
+    private status: MissionStatus = MissionStatus.available;
 
     constructor(
         id: string,
@@ -156,11 +156,15 @@ export class Mission {
         this.expirationDate = expirationDate;
     }
 
-    public getExpirationTimeRemaining() : number | null {
+    public getExpirationTimeRemaining(): number | null {
         return this.expirationTimeRemaining;
     }
     public setExpirationTimeRemaining(secondsRemaining: number | null) {
-        this.expirationTimeRemaining = secondsRemaining;
+        if (secondsRemaining < 0) {
+            this.expirationTimeRemaining = 0;
+        } else {
+            this.expirationTimeRemaining = secondsRemaining;
+        }
     }
 
     public getArrivalDate(): Timestamp {
@@ -200,7 +204,7 @@ export function getActiveMissions(missions: Mission[], includeHidden: boolean = 
             } else {
                 activeMissions.push(mission);
             }
-        } 
+        }
     }
     return activeMissions;
 }

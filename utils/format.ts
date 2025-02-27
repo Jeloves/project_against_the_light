@@ -17,11 +17,12 @@ export function formatTimestamp(timestamp: Timestamp): { date: string, time: str
     // Convert string to date object
     const dateObject = new Date(timestamp.secondsFromEpoch * 1000);
     const time = `${padNumber(dateObject.getHours())}:${padNumber(dateObject.getMinutes())}:${padNumber(dateObject.getSeconds())}`;
-
+    const standardTime =  `${dateObject.getUTCHours().toString().padStart(2, "0")}:${dateObject.getUTCMinutes().toString().padStart(2, "0")}`;
     // Format and return the date string
     return {
         date: date,
-        time: time
+        time: time,
+        standardTime: standardTime
     }
 }
 export function formatSecondsFromEpoch(secondsFromEpoch: number): { date: string, time: string, standardTime: string } {

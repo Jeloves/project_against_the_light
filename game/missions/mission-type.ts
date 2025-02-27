@@ -1,3 +1,5 @@
+import { getRandomIndex } from "@/utils/math";
+
 export enum MissionType {
     assault = "assault",
     counter_reconnaissance = "counter-reconnaissance",
@@ -21,4 +23,9 @@ export function getMissionTypeByIndex(index: number) {
         }
         count++;
     }
+}
+
+export function getRandomMissionType(): MissionType {
+    const randomIndex = getRandomIndex(totalMissionTypes);
+    return getMissionTypeByIndex(randomIndex);
 }
