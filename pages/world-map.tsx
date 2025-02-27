@@ -15,7 +15,7 @@ const WorldMap = () => {
     const [test, isTest] = useState<boolean>(true);
 
     const onClickMe = () => {
-        dispatchMap({ type: 'SAMPLE_ACTION' });
+        dispatchMap({ type: 'PLAY_CLOCK' });
     }
 
     if (test) {

@@ -1,6 +1,7 @@
 import { ReactNode, useReducer } from "react";
 import { MapContext, mapReducer, MapState } from "./MapContext";
 import { createAllDefaultStateProfiles } from "@/game/map/StateProfile";
+import { GameClock } from "@/game/time/GameClock";
 
 type MapProviderProps = {
   children: ReactNode;
@@ -9,7 +10,8 @@ type MapProviderProps = {
 const MapProvider: React.FC<MapProviderProps> = ({ children }) => {
   const initialState: MapState = {
     stateProfiles: createAllDefaultStateProfiles(),
-    missions: []
+    missions: [],
+    clock: new GameClock()
   };
 
   const [mapState, dispatchMap] = useReducer(mapReducer, initialState);

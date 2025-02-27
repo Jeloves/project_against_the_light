@@ -93,3 +93,12 @@ export function getTimestampBySecondsFromEpoch(secondsFromEpoch: number): Timest
 
     return { year: year, month: month, day: day, secondsFromEpoch: secondsFromEpoch };
 }
+
+export function getEpochTimestamp(): Timestamp {
+    return {
+        year: epochYear,
+        month: epochMinute,
+        day: epochDay,
+        secondsFromEpoch: 0
+    }
+}

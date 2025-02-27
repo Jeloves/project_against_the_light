@@ -6,15 +6,19 @@ import { MissionType } from "@/game/missions/mission-type";
 import { createTimestamp } from "@/game/time/timestamp";
 import { createContext, useContext } from "react";
 import { getMissionTitle } from '@/missions/titles';
+import { GameClock } from '@/game/time/GameClock';
 
 export type MapState = {
     stateProfiles: Map<USStateAbbreviation, StateProfile>;
     missions: Mission[];
+    clock: GameClock
 };
 
 export type MapAction =
     | { type: "CREATE_DEFAULT_MISSION" }
     | { type: "SAMPLE_ACTION" }
+    | { type: "PAUSE_CLOCK" }
+    | { type: "PLAY_CLOCK" }
     ;
 
 export const mapReducer = (state: MapState, action: MapAction): MapState => {
@@ -67,6 +71,17 @@ export const mapReducer = (state: MapState, action: MapAction): MapState => {
             });
 
             return { ...state, missions: updatedMissions };
+        case "PAUSE_CLOCK":
+            const updatedClock1 = new GameClock();
+            updatedClock1.writeData(state.clock.readData());
+            updatedClock1.pause();
+            return { ...state, clock: updatedClock1 };
+        case "PLAY_CLOCK":
+            console.log("hey!")
+            const updatedClock2 = new GameClock();
+            updatedClock2.writeData(state.clock.readData());
+            updatedClock2.start();
+            return { ...state, clock: updatedClock2 };
         default:
             return state;
     }
