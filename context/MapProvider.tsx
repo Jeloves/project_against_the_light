@@ -11,7 +11,8 @@ const MapProvider: React.FC<MapProviderProps> = ({ children }) => {
   const initialState: MapState = {
     stateProfiles: createAllDefaultStateProfiles(),
     missions: [],
-    clock: new GameClock()
+    clock: new GameClock(),
+    secondsFromEpoch: 0
   };
 
   const [mapState, dispatchMap] = useReducer(mapReducer, initialState);

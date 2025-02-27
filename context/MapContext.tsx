@@ -4,14 +4,15 @@ import { getListOfUSStates, USStateAbbreviation } from "@/game/map/USStateAbbrev
 import { Mission } from "@/game/missions/mission";
 import { MissionType } from "@/game/missions/mission-type";
 import { createTimestamp } from "@/game/time/timestamp";
-import { createContext, useContext } from "react";
+import { createContext, Dispatch, SetStateAction, useContext } from "react";
 import { getMissionTitle } from '@/missions/titles';
 import { GameClock } from '@/game/time/GameClock';
 
 export type MapState = {
     stateProfiles: Map<USStateAbbreviation, StateProfile>;
     missions: Mission[];
-    clock: GameClock
+    clock: GameClock;
+    secondsFromEpoch: number;
 };
 
 export type MapAction =
@@ -19,9 +20,14 @@ export type MapAction =
     | { type: "SAMPLE_ACTION" }
     | { type: "PAUSE_CLOCK" }
     | { type: "PLAY_CLOCK" }
+    | { type: "SET_INCREMENT_PROPERTY", payload: any }
+    | { type: "SET_CLOCK_DISPATCH", payload: any }
+    | { type: "INCREMENT_SECONDS_FROM_EPOCH" }
     ;
 
 export const mapReducer = (state: MapState, action: MapAction): MapState => {
+    const updatedClock = new GameClock(state.clock);
+
     switch (action.type) {
         case "CREATE_DEFAULT_MISSION":
             const defaultMission = new Mission(
@@ -72,16 +78,18 @@ export const mapReducer = (state: MapState, action: MapAction): MapState => {
 
             return { ...state, missions: updatedMissions };
         case "PAUSE_CLOCK":
-            const updatedClock1 = new GameClock();
-            updatedClock1.writeData(state.clock.readData());
-            updatedClock1.pause();
-            return { ...state, clock: updatedClock1 };
+            console.log("Paused.")
+            updatedClock.pause();
+            return { ...state, clock: updatedClock };
         case "PLAY_CLOCK":
-            console.log("hey!")
-            const updatedClock2 = new GameClock();
-            updatedClock2.writeData(state.clock.readData());
-            updatedClock2.start();
-            return { ...state, clock: updatedClock2 };
+            console.log("Playing...")
+            updatedClock.start();
+            return { ...state, clock: updatedClock };
+        case "SET_CLOCK_DISPATCH":
+            updatedClock.setDispatchAction(action.payload);
+            return { ...state, clock: updatedClock }
+        case "INCREMENT_SECONDS_FROM_EPOCH":
+            return { ...state, secondsFromEpoch: state.secondsFromEpoch + 1 }
         default:
             return state;
     }

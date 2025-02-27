@@ -7,6 +7,7 @@ import { PrimaryResource } from "@/game/resources/resources";
 import MissionPanel from "@/components/world-map/MissionPanel";
 import { useMapContext } from "@/context/MapContext";
 import { useState } from "react";
+import { getEpochTimestamp, getTimestampBySecondsFromEpoch, Timestamp } from "@/game/time/timestamp";
 
 const WorldMap = () => {
     const { resourceInventoryState, dispatchResourceInventory } = useResourceInventoryContext();
@@ -14,8 +15,10 @@ const WorldMap = () => {
 
     const [test, isTest] = useState<boolean>(true);
 
-    const onClickMe = () => {
-        dispatchMap({ type: 'PLAY_CLOCK' });
+    const onClickMe1 = () => {
+    }
+
+    const onClickMe2 = () => {
     }
 
     if (test) {
@@ -28,9 +31,9 @@ const WorldMap = () => {
 
     const pauseplayTime = (isPaused: boolean) => {
         if (isPaused) {
-            console.log("Game is paused.")
+            dispatchMap({ type: 'PLAY_CLOCK' });
         } else {
-            console.log("Game has resumed.")
+            dispatchMap({ type: 'PAUSE_CLOCK' });
         }
     }
 
@@ -41,7 +44,7 @@ const WorldMap = () => {
         <main className={styles.container}>
             <div className={styles.topbar}>
                 <ResourcePanel />
-                <TimeControl pauseplayTime={pauseplayTime} fastForwardTime={fastforwardTime} />
+                <TimeControl clock={mapState.clock} pauseplayTime={pauseplayTime} fastForwardTime={fastforwardTime} />
             </div>
 
             <div className={styles.sidemenu}>
@@ -59,8 +62,8 @@ const WorldMap = () => {
 
             <MissionPanel />
 
-            <button className={styles.sample} onClick={onClickMe}>click me</button>
-
+            <button className={styles.sample} onClick={onClickMe1}>Play</button>
+            <button className={styles.sample2} onClick={onClickMe2}>Pause</button>
         </main>
     );
 

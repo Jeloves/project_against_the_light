@@ -1,5 +1,6 @@
 .container {
     display: flex;
+    width: fit-content;
 
     button {
         all: unset;  /* Reset all properties */
@@ -11,5 +12,10 @@
 .datetime {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+
+    p {
+        margin: 0;
+    }
 }
